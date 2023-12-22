@@ -31,11 +31,6 @@ void readFile(char filename[], char string[]){
         ++n;
     }
     string[n] = '\0';
-//    fout.open("File.txt");
-//    edit(string);
-//    fout << string;
-//    fin.close();
-//    fout.close();
 }
 
 
@@ -56,6 +51,8 @@ void printMenu(){
     cout << "4. Ввести последовательность символов";
     lineDown();
     cout << "5. найти все подстроки";
+    lineDown();
+    cout << "0. Выход";
     lineDown(2);
 
 }
@@ -73,6 +70,7 @@ int count(char string[], char symbol){
     return count;
 }
 
+
 int find(char string[], char symbol, int start=0){
     for (int index = start; index < strlen(string); index++){
         if (string[index] == symbol){
@@ -81,6 +79,7 @@ int find(char string[], char symbol, int start=0){
     }
     return -1;
 }
+
 
 int split(char string[], char splittedString[startWords][wordsLen], char separator=' '){
     int words = count(string, separator) + 1;
@@ -112,7 +111,6 @@ bool isPunct(char string[]){
 }
 
 
-
 //реализовать join
 void deleteSymbols(char string[], char symbol){
     for (int i = 0; i < strlen(string) - 1; i++){
@@ -130,13 +128,21 @@ void deleteSymbols(char string[], char symbol){
 
 int findSubstringsAmount(char string[], char substring[]) {
     bool flag;
-    for ( int i = 0; i < strlen(string) - strlen(substring) - 1; i++ ){
+    int counter = 0;
+    int strLen = strlen(string), substrLen = strlen(substring);
+    for ( int i = 0; i <= strLen - substrLen; i++ ){
         flag = true;
-        for ( int j = 0; j < strlen(substring); j++ ){
-
+        for ( int j = 0; j < substrLen; j++ ){
+            if (substring[j] != string[i + j]){
+                flag = false;
+                break;
+            }
+        }
+        if (flag){
+            counter++;
         }
     }
-    return 0;
+    return counter;
 }
 
 
@@ -150,14 +156,29 @@ void changeRegistr(char string[]){
 
 }
 
-
-//void readFile(char filepath[], char string[]){
-//    ifstream in(filepath);
-//    if ( in.is_open() ){
-////        in.getline(string, 500);
+//
+//int boyerMoore(char string[], char substring[]){
+//    int index = 0;
+//    const unsigned int strLen = strlen(string), substrLen = strlen(substring);
+//    unsigned int table[substrLen + 1];
+//    int f, counter = 0;
+//    table[substrLen] = substrLen;
+//    for (unsigned int i = substrLen - 2; i >= 0; i--){
+//        counter++;
+//        f = find(substring, substring[i], i);
+//        if (f == -1 && f != substrLen - 1){
+//            table[i] = counter;
+//        }else if (f != -1) {
+//            table[i] = table[f];
+//        }
 //    }
 //
-//    in.read(string, 500);
+//    while ( index <= (strLen - substrLen)){
+//
+//
+//
+//    }
+//
 //}
 
 
@@ -248,18 +269,20 @@ int main() {
                     }
                 }
                 cout << string;
-                break;
                 lineDown(2);
+                break;
+
 
             case 5:
 
                 cout << "Введите подстроку: ";
-                cin.getline(string, string_size);
+                cin.getline(substring, string_size);
                 cout << "поиск кол-ва подстроки перебором: " << findSubstringsAmount(string, substring);
+                lineDown();
                 break;
 
-            case 6:
-
+            case 0:
+                return 0;
                 break;
         }
     }
