@@ -12,12 +12,31 @@ char first_10_of_Latin[] = {'A', 'B', 'C', 'D', 'E',
                             'F', 'G', 'H', 'I', 'J'};
 
 
-//
+
 void clearStream(){
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
+
+
+void readFile(char filename[], char string[]){
+    ofstream fout;
+    ifstream fin;
+    char c;
+    int n = 0;
+    fin.open(filename);
+    while (fin.get(c)){
+        string[n] = c;
+        ++n;
+    }
+    string[n] = '\0';
+//    fout.open("File.txt");
+//    edit(string);
+//    fout << string;
+//    fin.close();
+//    fout.close();
+}
 
 
 inline void lineDown(int times=1){
@@ -120,6 +139,7 @@ int findSubstringsAmount(char string[], char substring[]) {
     return 0;
 }
 
+
 void changeRegistr(char string[]){
 
     for ( int i = 1; i < strlen(string); i++ ){
@@ -131,14 +151,14 @@ void changeRegistr(char string[]){
 }
 
 
-void readFile(char filepath[], char string[]){
-    ifstream in(filepath);
-    if ( in.is_open() ){
-//        in.getline(string, 500);
-    }
-
-    in.read(string, 500);
-}
+//void readFile(char filepath[], char string[]){
+//    ifstream in(filepath);
+//    if ( in.is_open() ){
+////        in.getline(string, 500);
+//    }
+//
+//    in.read(string, 500);
+//}
 
 
 int main() {
@@ -168,10 +188,10 @@ int main() {
                     cin.getline(string, string_size);
                     lineDown();
                 }else{
+                    cout << "Введите путь к файлу: ";
                     cin.getline(filename, 500);
                     readFile(filename, string);
-                    cout << string;
-                    // filereading
+                    lineDown();
                 }
 
                 cout << "Введенная последовательность: ";
